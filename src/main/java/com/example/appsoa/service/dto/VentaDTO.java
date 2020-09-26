@@ -8,17 +8,16 @@ import java.io.Serializable;
  * A DTO for the {@link com.example.appsoa.domain.Venta} entity.
  */
 public class VentaDTO implements Serializable {
-    
+
     private Long id;
 
     @NotNull
     private Instant fecha;
 
-
     private Long clienteId;
 
     private String clienteNombre;
-    
+
     public Long getId() {
         return id;
     }

@@ -8,15 +8,16 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * A Venta.
+ * A DetalleVenta.
  */
 @Entity
-@Table(name = "venta")
+@Table(name = "detalle_venta")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Venta implements Serializable {
+public class DetalleVenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,16 +26,17 @@ public class Venta implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "fecha", nullable = false)
-    private Instant fecha;
-
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @NotNull
-    @JsonIgnoreProperties(value = "ventas", allowSetters = true)
-    private Cliente cliente;
+    @JsonIgnoreProperties(value = "detalleVentas", allowSetters = true)
+    private Producto producto;
+
+    @OneToMany(mappedBy = "detalleVenta")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Venta> ventas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
         return id;
     }
@@ -43,31 +45,32 @@ public class Venta implements Serializable {
         this.id = id;
     }
 
-    public Instant getFecha() {
-        return fecha;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public Venta fecha(Instant fecha) {
-        this.fecha = fecha;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Set<Venta> getVentas() {
+        return ventas;
+    }
+
+    public void setVentas(Set<Venta> ventas) {
+        this.ventas = ventas;
+    }
+
+    public DetalleVenta producto(Producto producto) {
+        this.producto = producto;
         return this;
     }
 
-    public void setFecha(Instant fecha) {
-        this.fecha = fecha;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public Venta cliente(Cliente cliente) {
-        this.cliente = cliente;
+    public DetalleVenta ventas(Set<Venta> ventas) {
+        this.ventas = ventas;
         return this;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -75,10 +78,10 @@ public class Venta implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Venta)) {
+        if (!(o instanceof DetalleVenta)) {
             return false;
         }
-        return id != null && id.equals(((Venta) o).id);
+        return id != null && id.equals(((DetalleVenta) o).id);
     }
 
     @Override
@@ -89,9 +92,8 @@ public class Venta implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "Venta{" +
+        return "DetalleVenta{" +
             "id=" + getId() +
-            ", fecha='" + getFecha() + "'" +
             "}";
     }
 }

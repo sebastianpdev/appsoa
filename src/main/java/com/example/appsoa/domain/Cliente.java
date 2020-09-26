@@ -118,6 +118,11 @@ public class Cliente implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Cliente id(Long id) {
+        this.id = id;
+        return this;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
