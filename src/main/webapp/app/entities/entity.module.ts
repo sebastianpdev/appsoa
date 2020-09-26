@@ -8,6 +8,10 @@ import { RouterModule } from '@angular/router';
         path: 'cliente',
         loadChildren: () => import('./cliente/cliente.module').then(m => m.AppsoaClienteModule),
       },
+      {
+        path: 'producto',
+        loadChildren: () => import('./producto/producto.module').then(m => m.AppsoaProductoModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
