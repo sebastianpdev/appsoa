@@ -18,6 +18,20 @@
 - Crear preferencias de productos por usuario.
 - Permitir el filtrado por marcas de productos, precios.
 
+## Credentials & Database
+
+```
+POST http://localhost:8080/api/authenticate
+
+{"username":"admin","password":"admin"}
+
+Postgres
+port: 5432
+name: postgres
+pass:
+
+```
+
 ## Development Environment
 
 I assume you have node installed!
