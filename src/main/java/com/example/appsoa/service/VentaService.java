@@ -1,5 +1,6 @@
 package com.example.appsoa.service;
 
+import com.example.appsoa.domain.Cliente;
 import com.example.appsoa.domain.Venta;
 import com.example.appsoa.repository.VentaRepository;
 import com.example.appsoa.service.dto.VentaDTO;
@@ -12,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link Venta}.
@@ -80,5 +83,14 @@ public class VentaService {
     public void delete(Long id) {
         log.debug("Request to delete Venta : {}", id);
         ventaRepository.deleteById(id);
+    }
+
+    public List<VentaDTO> getByCliente(Long clienteId) {
+        return ventaRepository.findAllByCliente(new Cliente().id(clienteId)).stream()
+            .map(ventaMapper::toDto).collect(Collectors.toList());
+    }
+
+    public List<Venta> getVentasByCliente(Long clienteId) {
+        return ventaRepository.findAllByClienteId(clienteId).stream().map(id -> new Venta().id(id)).collect(Collectors.toList());
     }
 }

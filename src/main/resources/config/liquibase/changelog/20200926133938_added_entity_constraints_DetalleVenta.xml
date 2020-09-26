@@ -15,7 +15,7 @@
                                  referencedTableName="producto"/>
 
         <addForeignKeyConstraint baseColumnNames="venta_id"
-                                 baseTableName="venta"
+                                 baseTableName="detalle_venta"
                                  constraintName="fk_detalle_venta_venta_id"
                                  referencedColumnNames="id"
                                  referencedTableName="venta"/>

@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Venta.
@@ -33,6 +35,10 @@ public class Venta implements Serializable {
     @NotNull
     @JsonIgnoreProperties(value = "ventas", allowSetters = true)
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "venta", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("venta")
+    private Set<DetalleVenta> detalleVentas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -68,6 +74,20 @@ public class Venta implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public Set<DetalleVenta> getDetalleVentas() {
+        return detalleVentas;
+    }
+
+    public void setDetalleVentas(Set<DetalleVenta> detalleVentas) {
+        this.detalleVentas = detalleVentas;
+    }
+
+    public Venta id(Long id) {
+        this.id = id;
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

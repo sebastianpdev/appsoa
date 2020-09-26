@@ -8,8 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A DetalleVenta.
@@ -26,14 +24,15 @@ public class DetalleVenta implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "detalleVentas", allowSetters = true)
     private Producto producto;
 
-    @OneToMany(mappedBy = "detalleVenta")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Venta> ventas = new HashSet<>();
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = "detalleVentas", allowSetters = true)
+    private Venta venta;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -53,12 +52,12 @@ public class DetalleVenta implements Serializable {
         this.producto = producto;
     }
 
-    public Set<Venta> getVentas() {
-        return ventas;
+    public Venta getVenta() {
+        return venta;
     }
 
-    public void setVentas(Set<Venta> ventas) {
-        this.ventas = ventas;
+    public void setVenta(Venta venta) {
+        this.venta = venta;
     }
 
     public DetalleVenta producto(Producto producto) {
@@ -66,8 +65,8 @@ public class DetalleVenta implements Serializable {
         return this;
     }
 
-    public DetalleVenta ventas(Set<Venta> ventas) {
-        this.ventas = ventas;
+    public DetalleVenta venta(Venta venta) {
+        this.venta = venta;
         return this;
     }
 

@@ -1,5 +1,6 @@
 package com.example.appsoa.web.rest;
 
+import com.example.appsoa.security.AuthoritiesConstants;
 import com.example.appsoa.service.VentaService;
 import com.example.appsoa.web.rest.errors.BadRequestAlertException;
 import com.example.appsoa.service.dto.VentaDTO;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,6 +75,7 @@ public class VentaResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/ventas")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<VentaDTO> updateVenta(@Valid @RequestBody VentaDTO ventaDTO) throws URISyntaxException {
         log.debug("REST request to update Venta : {}", ventaDTO);
         if (ventaDTO.getId() == null) {
@@ -118,6 +121,7 @@ public class VentaResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/ventas/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteVenta(@PathVariable Long id) {
         log.debug("REST request to delete Venta : {}", id);
         ventaService.delete(id);

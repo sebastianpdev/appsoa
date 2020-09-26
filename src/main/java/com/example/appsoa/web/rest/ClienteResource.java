@@ -1,5 +1,6 @@
 package com.example.appsoa.web.rest;
 
+import com.example.appsoa.security.AuthoritiesConstants;
 import com.example.appsoa.service.ClienteService;
 import com.example.appsoa.web.rest.errors.BadRequestAlertException;
 import com.example.appsoa.service.dto.ClienteDTO;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,6 +75,7 @@ public class ClienteResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/clientes")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<ClienteDTO> updateCliente(@Valid @RequestBody ClienteDTO clienteDTO) throws URISyntaxException {
         log.debug("REST request to update Cliente : {}", clienteDTO);
         if (clienteDTO.getId() == null) {
@@ -91,6 +94,7 @@ public class ClienteResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clientes in body.
      */
     @GetMapping("/clientes")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<List<ClienteDTO>> getAllClientes(Pageable pageable) {
         log.debug("REST request to get a page of Clientes");
         Page<ClienteDTO> page = clienteService.findAll(pageable);
@@ -118,6 +122,7 @@ public class ClienteResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/clientes/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
         log.debug("REST request to delete Cliente : {}", id);
         clienteService.delete(id);

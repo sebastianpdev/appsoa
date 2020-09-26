@@ -3,6 +3,7 @@ package com.example.appsoa.service.dto;
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.example.appsoa.domain.Venta} entity.
@@ -17,6 +18,11 @@ public class VentaDTO implements Serializable {
     private Long clienteId;
 
     private String clienteNombre;
+
+    private Set<DetalleVentaDTO> detalleVentas;
+
+
+    // -------------------- GETTERS AND SETTERS
 
     public Long getId() {
         return id;
@@ -48,6 +54,14 @@ public class VentaDTO implements Serializable {
 
     public void setClienteNombre(String clienteNombre) {
         this.clienteNombre = clienteNombre;
+    }
+
+    public Set<DetalleVentaDTO> getDetalleVentas() {
+        return detalleVentas;
+    }
+
+    public void setDetalleVentas(Set<DetalleVentaDTO> detalleVentas) {
+        this.detalleVentas = detalleVentas;
     }
 
     @Override

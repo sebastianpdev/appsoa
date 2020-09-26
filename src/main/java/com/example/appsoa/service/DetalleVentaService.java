@@ -1,6 +1,7 @@
 package com.example.appsoa.service;
 
 import com.example.appsoa.domain.DetalleVenta;
+import com.example.appsoa.domain.Venta;
 import com.example.appsoa.repository.DetalleVentaRepository;
 import com.example.appsoa.service.dto.DetalleVentaDTO;
 import com.example.appsoa.service.mapper.DetalleVentaMapper;
@@ -11,8 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import rx.Single;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link DetalleVenta}.
@@ -27,9 +31,12 @@ public class DetalleVentaService {
 
     private final DetalleVentaMapper detalleVentaMapper;
 
-    public DetalleVentaService(DetalleVentaRepository detalleVentaRepository, DetalleVentaMapper detalleVentaMapper) {
+    private final VentaService ventaService;
+
+    public DetalleVentaService(DetalleVentaRepository detalleVentaRepository, DetalleVentaMapper detalleVentaMapper, VentaService ventaService) {
         this.detalleVentaRepository = detalleVentaRepository;
         this.detalleVentaMapper = detalleVentaMapper;
+        this.ventaService = ventaService;
     }
 
     /**
@@ -80,5 +87,28 @@ public class DetalleVentaService {
     public void delete(Long id) {
         log.debug("Request to delete DetalleVenta : {}", id);
         detalleVentaRepository.deleteById(id);
+    }
+
+    public Single<List<DetalleVenta>> findByVentas(Long ventaId) {
+        return Single.create(byVentasSubscriber -> {
+            List<DetalleVenta> detalleVentas = detalleVentaRepository.findAllByVenta(new Venta().id(ventaId));
+            byVentasSubscriber.onSuccess(detalleVentas);
+        });
+    }
+
+    public Single<List<DetalleVenta>> findByCliente(Long clienteId) {
+        return Single.create(byClienteSubscriber -> {
+            List<DetalleVenta> detalleVentas = this.getByCliente(clienteId);
+            byClienteSubscriber.onSuccess(detalleVentas);
+        });
+    }
+
+    public List<DetalleVenta> getByCliente(Long clienteId) {
+        return detalleVentaRepository.findAllByVentaIn(ventaService.getVentasByCliente(clienteId));
+    }
+
+
+    public List<DetalleVentaDTO> mapListToDTO(List<DetalleVenta> data) {
+        return data.stream().map(detalleVentaMapper::toDto).collect(Collectors.toList());
     }
 }

@@ -1,6 +1,7 @@
 package com.example.appsoa.service.dto;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 /**
  * A DTO for the {@link com.example.appsoa.domain.DetalleVenta} entity.
@@ -12,6 +13,11 @@ public class DetalleVentaDTO implements Serializable {
     private Long productoId;
 
     private String productoNombre;
+
+    private Long ventaId;
+
+    private Instant ventaFecha;
+
 
     public Long getId() {
         return id;
@@ -35,6 +41,22 @@ public class DetalleVentaDTO implements Serializable {
 
     public void setProductoNombre(String productoNombre) {
         this.productoNombre = productoNombre;
+    }
+
+    public Long getVentaId() {
+        return ventaId;
+    }
+
+    public void setVentaId(Long ventaId) {
+        this.ventaId = ventaId;
+    }
+
+    public Instant getVentaFecha() {
+        return ventaFecha;
+    }
+
+    public void setVentaFecha(Instant ventaFecha) {
+        this.ventaFecha = ventaFecha;
     }
 
     @Override

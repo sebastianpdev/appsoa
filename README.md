@@ -1,13 +1,26 @@
-# appsoa
+# Spring Boot Application for SOAINT TEST
 
-This application was generated using JHipster 6.10.3, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.10.3](https://www.jhipster.tech/documentation-archive/v6.10.3).
+## Application improvements
 
-## Development
+- We can improve security by filtering endpoints by role.
+- All CRUDs use user audits.
+- When registering a new sale first validate the availability of products in stock.
+- Store a history of sales.
+- Create per-user product preferences.
+- Allow filtering by product brands, prices.
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+## Mejoras al aplicativo
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+- Podemos mejorar la seguridad discriminando filtrando los endpoint por roles.
+- Todos los CRUDs utilicen auditorias de usuarios.
+- Al momento de registrar una nueva venta primero validar la disponibilidad de los productos en stock.
+- Almacenar un historial de ventas.
+- Crear preferencias de productos por usuario.
+- Permitir el filtrado por marcas de productos, precios.
+
+## Development Environment
+
+I assume you have node installed!
 
 After installing Node, you should be able to run the following command to install development tools.
 You will only need to run this command when dependencies change in [package.json](package.json).
@@ -82,8 +95,6 @@ Edit [src/main/webapp/content/scss/vendor.scss](src/main/webapp/content/scss/ven
 
 Note: There are still a few other things remaining to do for Leaflet that we won't detail here.
 
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
-
 ### Using Angular CLI
 
 You can also use [Angular CLI][] to generate some custom client code.
@@ -126,8 +137,6 @@ java -jar target/*.jar
 ```
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
-
-Refer to [Using JHipster in production][] for more details.
 
 ### Packaging as war
 
@@ -210,28 +219,3 @@ Then run:
 ```
 docker-compose -f src/main/docker/app.yml up -d
 ```
-
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
-
-## Continuous Integration (optional)
-
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
-
-[jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 6.10.3 archive]: https://www.jhipster.tech/documentation-archive/v6.10.3
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.10.3/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.10.3/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.10.3/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v6.10.3/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v6.10.3/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.10.3/setting-up-ci/
-[node.js]: https://nodejs.org/
-[yarn]: https://yarnpkg.org/
-[webpack]: https://webpack.github.io/
-[angular cli]: https://cli.angular.io/
-[browsersync]: https://www.browsersync.io/
-[jest]: https://facebook.github.io/jest/
-[jasmine]: https://jasmine.github.io/2.0/introduction.html
-[protractor]: https://angular.github.io/protractor/
-[leaflet]: https://leafletjs.com/
-[definitelytyped]: https://definitelytyped.org/
